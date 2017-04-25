@@ -7,4 +7,8 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: "home#dashboard", as: 'dashboard'
 
+  resource :schedules
+  resource :team_members
+  resource :jobs
+
 end

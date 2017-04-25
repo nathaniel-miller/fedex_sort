@@ -1,4 +1,9 @@
 <h1>Home#dashboard</h1>
 <p>Find me in app/views/home/index.html.erb</p>
+<p>Find me in app/views/home/index.html.erb</p>
 
+
+<%= link_to 'Schedules', schedules_path %>
+<%= link_to 'Positions', jobs_path %>
+<%= link_to 'Team', team_members_path %>
 <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
