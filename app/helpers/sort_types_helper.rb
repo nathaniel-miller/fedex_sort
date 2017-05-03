@@ -1,0 +1,2 @@
+module SortTypesHelper
+end

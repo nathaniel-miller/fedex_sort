@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :sort_types
   resources :rosters
   resources :position_lists
   devise_for :users

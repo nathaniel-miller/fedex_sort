@@ -1,0 +1,2 @@
+class SortType < ApplicationRecord
+end
