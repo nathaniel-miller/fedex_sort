@@ -69,6 +69,16 @@ class TeamMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_member_params
-      params.fetch(:team_member, {})
+      # byebug
+      # params.fetch(:team_member, {})
+      params.require(:team_member).permit(
+        :first_name,
+        :last_name,
+        :date_of_hire,
+        :vacation,
+        :absent,
+        :extra,
+        :light_duty
+      )
     end
 end
