@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Position Lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @position_lists.each do |position_list| %>
+      <tr>
+        <td><%= link_to 'Show', position_list %></td>
+        <td><%= link_to 'Edit', edit_position_list_path(position_list) %></td>
+        <td><%= link_to 'Destroy', position_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Position List', new_position_list_path %>
