@@ -12,6 +12,26 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= form_for @team_member do |f| %>
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name %>
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+      <%= f.label :employee_number %><br />
+      <%= f.text_field :employee_number %><br />
+      <%= f.label :date_of_hire %><br />
+      <%= f.date_select :date_of_hire %>
+      <%= f.label :vacation %><br />
+      <%= f.check_box :vacation %>
+      <%= f.label :absent %><br />
+      <%= f.check_box :absent %>
+      <%= f.label :extra %><br />
+      <%= f.check_box :extra %>
+      <%= f.label :light_duty %><br />
+      <%= f.check_box :light_duty %>
+      <%= f.label :permanent_position %><br />
+      <%= f.collection_select :permanent_position, Position.all, :id, :name %>
+      <%= f.submit %>
+    <% end %>
   </div>
 <% end %>
