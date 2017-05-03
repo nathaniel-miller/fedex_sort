@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503000438) do
+ActiveRecord::Schema.define(version: 20170503002232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,18 @@ ActiveRecord::Schema.define(version: 20170503000438) do
   end
 
   create_table "team_members", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "employee_number"
+    t.date     "date_of_hire"
+    t.string   "position_history"
+    t.boolean  "vacation",           default: false
+    t.boolean  "absent",             default: false
+    t.boolean  "extra",              default: false
+    t.boolean  "light_duty",         default: false
+    t.integer  "permanent_position", default: 0
   end
 
   create_table "users", force: :cascade do |t|
