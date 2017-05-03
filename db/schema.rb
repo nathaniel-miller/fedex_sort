@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503043325) do
+ActiveRecord::Schema.define(version: 20170503043723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20170503043325) do
     t.boolean  "light_duty_friendly", default: false
     t.boolean  "newbie_friendly",     default: false
     t.boolean  "takes_extra",         default: false
+  end
+
+  create_table "rosters", force: :cascade do |t|
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "list_of_team_member_ids", default: [],              array: true
   end
 
   create_table "schedules", force: :cascade do |t|
