@@ -3,4 +3,5 @@
 <%= render 'form', team_member: @team_member %>
 
 <%= link_to 'Show', @team_member %> |
-<%= link_to 'Back', team_members_path %>
+<%= link_to 'Back', team_members_path %> |
+<%= link_to 'Destroy', @team_member, method: :delete, data: { confirm: 'Are you sure?' } %>
