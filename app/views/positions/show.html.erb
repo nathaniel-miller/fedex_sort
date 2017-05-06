@@ -34,4 +34,5 @@
   </tbody>
 </table>
 <%= link_to 'Edit', edit_position_path(@position) %> |
-<%= link_to 'Back', positions_path %>
+<%= link_to 'Back', positions_path %> |
+<%= link_to 'Destroy', @position, method: :delete, data: { confirm: 'Are you sure?' } %>
