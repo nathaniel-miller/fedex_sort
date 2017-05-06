@@ -18,13 +18,13 @@
       <%= f.label :number_of_positions %><br />
       <%= f.number_field :number_of_positions %>
       <%= f.label :priority_level %><br />
-      <%= f.number_field :priority_level %>
+      <%= f.select :priority_level, [['High', 1], ['Medium', 2], ['Low', 3]] %>
       <%= f.label :light_duty_friendly %><br />
       <%= f.check_box :light_duty_friendly %>
       <%= f.label :newbie_friendly %><br />
       <%= f.check_box :newbie_friendly %>
       <%= f.label :takes_extra %><br />
-      <%= f.check_box :takes_extra %>
+      <%= f.check_box :takes_extra %><br />
       <%= f.submit %>
     <% end %>
   </div>
