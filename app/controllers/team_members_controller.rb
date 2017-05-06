@@ -74,6 +74,7 @@ class TeamMembersController < ApplicationController
       params.require(:team_member).permit(
         :first_name,
         :last_name,
+        :employee_number,
         :date_of_hire,
         :vacation,
         :absent,
