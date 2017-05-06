@@ -12,6 +12,14 @@
   <tbody>
     <% @positions.each do |position| %>
       <tr>
+        <td>Name:</td>
+        <td><%= position.name %></td>
+      </tr>
+      <tr>
+        <td>Number of Spots:</td>
+        <td><%= position.position_number %></td>
+      </tr>
+      <tr>
         <td><%= link_to 'Show', position %></td>
         <td><%= link_to 'Edit', edit_position_path(position) %></td>
         <td><%= link_to 'Destroy', position, method: :delete, data: { confirm: 'Are you sure?' } %></td>
