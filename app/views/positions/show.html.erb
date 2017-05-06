@@ -1,4 +1,37 @@
 <p id="notice"><%= notice %></p>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
+  <tbody>
+    <tr>
+      <td>Position Name:</td>
+      <td><%= @position.name %></td>
+    </tr>
+    <tr>
+      <td>Number of Spots:</td>
+      <td><%= @position.position_number %></td>
+    </tr>
+    <tr>
+      <td>Priority Level</td>
+      <td><%= @position.priority_level %></td>
+    </tr>
+    <tr>
+      <td>Newbie Friendly?</td>
+      <td><%= @position.newbie_friendly %></td>
+    </tr>
+    <tr>
+      <td>Light Duty Friendly?</td>
+      <td><%= @position.light_duty_friendly %></td>
+    </tr>
+    <tr>
+      <td>Can absorb extra team members?</td>
+      <td><%= @position.takes_extra %></td>
+    </tr>
+  </tbody>
+</table>
 <%= link_to 'Edit', edit_position_path(@position) %> |
 <%= link_to 'Back', positions_path %>
