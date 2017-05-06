@@ -15,8 +15,8 @@
     <%= form_for @position do |f| %>
       <%= f.label :name %><br />
       <%= f.text_field :name %>
-      <%= f.label :number_of_positions %><br />
-      <%= f.number_field :number_of_positions %>
+      <%= f.label :position_number %><br />
+      <%= f.number_field :position_number %>
       <%= f.label :priority_level %><br />
       <%= f.select :priority_level, [['High', 1], ['Medium', 2], ['Low', 3]] %>
       <%= f.label :light_duty_friendly %><br />
