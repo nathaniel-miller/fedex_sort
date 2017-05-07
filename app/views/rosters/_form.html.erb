@@ -12,6 +12,7 @@
   <% end %>
 
   <div class="actions">
+    <%= f.collection_check_boxes :something, @user.team_members, :id, :full_name %>
     <%= f.submit %>
   </div>
 <% end %>
