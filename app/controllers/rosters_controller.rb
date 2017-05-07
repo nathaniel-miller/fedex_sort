@@ -14,6 +14,8 @@ class RostersController < ApplicationController
 
   # GET /rosters/new
   def new
+    @user = current_user
+    @team_members = @user.team_members
     @roster = Roster.new
   end
 
@@ -69,6 +71,10 @@ class RostersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def roster_params
-      params.fetch(:roster, {})
+      params.require(:roster).permit(
+        :user_id,
+        :name,
+        :team_member_ids => [],
+      )
     end
 end

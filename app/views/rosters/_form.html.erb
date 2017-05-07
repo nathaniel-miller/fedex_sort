@@ -12,7 +12,10 @@
   <% end %>
 
   <div class="actions">
-    <%= f.collection_check_boxes :something, @user.team_members, :id, :full_name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.collection_check_boxes :team_member_ids, @team_members, :id, :full_name %>
+    <%= f.hidden_field :user_id, :value => @user.id %>
     <%= f.submit %>
   </div>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507172802) do
+ActiveRecord::Schema.define(version: 20170507205055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,10 +40,17 @@ ActiveRecord::Schema.define(version: 20170507172802) do
   end
 
   create_table "rosters", force: :cascade do |t|
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "list_of_team_member_ids", default: [],              array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.string   "name"
+  end
+
+  create_table "rosters_team_members", force: :cascade do |t|
+    t.integer "roster_id"
+    t.integer "team_member_id"
+    t.index ["roster_id"], name: "index_rosters_team_members_on_roster_id", using: :btree
+    t.index ["team_member_id"], name: "index_rosters_team_members_on_team_member_id", using: :btree
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -108,6 +115,8 @@ ActiveRecord::Schema.define(version: 20170507172802) do
 
   add_foreign_key "positions_users", "positions"
   add_foreign_key "positions_users", "users"
+  add_foreign_key "rosters_team_members", "rosters"
+  add_foreign_key "rosters_team_members", "team_members"
   add_foreign_key "team_members_users", "team_members"
   add_foreign_key "team_members_users", "users"
 end
