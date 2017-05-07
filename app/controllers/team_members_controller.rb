@@ -4,7 +4,14 @@ class TeamMembersController < ApplicationController
   # GET /team_members
   # GET /team_members.json
   def index
-    @team_members = current_user.team_members
+    path = request.original_fullpath
+
+    if path == "/employees"
+      @team_members = TeamMember.all
+    else
+     @team_members = current_user.team_members
+   end
+   
   end
 
   # GET /team_members/1
