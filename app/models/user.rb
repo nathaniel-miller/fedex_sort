@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :team_members
   has_and_belongs_to_many :positions
+  has_many :rosters
 end
