@@ -21,6 +21,8 @@ class SetupsController < ApplicationController
 
   # GET /setups/1/edit
   def edit
+    @user = current_user
+    @positions = Position.all
   end
 
   # POST /setups
@@ -74,7 +76,7 @@ class SetupsController < ApplicationController
       params.require(:setup).permit(
         :name,
         :user_id,
-        :positions => []
+        :position_ids => []
       )
     end
 end
