@@ -12,6 +12,10 @@
   <tbody>
     <% @rosters.each do |roster| %>
       <tr>
+        <td>Name: </td>
+        <td><%= roster.name %></td>
+      </tr>
+      <tr>
         <td><%= link_to 'Show', roster %></td>
         <td><%= link_to 'Edit', edit_roster_path(roster) %></td>
         <td><%= link_to 'Destroy', roster, method: :delete, data: { confirm: 'Are you sure?' } %></td>
