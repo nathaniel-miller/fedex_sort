@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507205055) do
+ActiveRecord::Schema.define(version: 20170508224426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20170507205055) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "list_of_position_ids", default: [],              array: true
+  end
+
+  create_table "position_lists_positions", force: :cascade do |t|
+    t.integer "position_list_id"
+    t.integer "position_id"
+    t.index ["position_id"], name: "index_position_lists_positions_on_position_id", using: :btree
+    t.index ["position_list_id"], name: "index_position_lists_positions_on_position_list_id", using: :btree
   end
 
   create_table "positions", force: :cascade do |t|
@@ -113,6 +120,8 @@ ActiveRecord::Schema.define(version: 20170507205055) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "position_lists_positions", "position_lists"
+  add_foreign_key "position_lists_positions", "positions"
   add_foreign_key "positions_users", "positions"
   add_foreign_key "positions_users", "users"
   add_foreign_key "rosters_team_members", "rosters"
