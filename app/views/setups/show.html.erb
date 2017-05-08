@@ -1,4 +1,17 @@
 <p id="notice"><%= notice %></p>
+<h1><%= @setup.name %></h1>
+
+<table>
+  <tbody>
+    <% @setup.positions.each do |position| %>
+      <tr>
+        <td>Name:</td>
+        <td><%= position.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 <%= link_to 'Edit', edit_setup_path(@setup) %> |
 <%= link_to 'Back', setups_path %>
