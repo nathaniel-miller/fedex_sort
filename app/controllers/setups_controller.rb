@@ -71,6 +71,10 @@ class SetupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def setup_params
-      params.fetch(:setup, {})
+      params.require(:setup).permit(
+        :name,
+        :user_id,
+        :positions => []
+      )
     end
 end
