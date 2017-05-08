@@ -1,0 +1,20 @@
+<%= form_for(setup) do |f| %>
+  <% if setup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(setup.errors.count, "error") %> prohibited this setup from being saved:</h2>
+
+      <ul>
+      <% setup.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.name %>
+    <%= f.collection_check_boxes :position_ids, @positions, :id, :name %>
+    <%= f.hidden_field :user_id, :value => @user.id %>
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508230016) do
+ActiveRecord::Schema.define(version: 20170508232206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20170508230016) do
     t.boolean  "light_duty_friendly", default: false
     t.boolean  "newbie_friendly",     default: false
     t.boolean  "takes_extra",         default: false
+  end
+
+  create_table "positions_setups", force: :cascade do |t|
+    t.integer "position_id"
+    t.integer "setup_id"
+    t.index ["position_id"], name: "index_positions_setups_on_position_id", using: :btree
+    t.index ["setup_id"], name: "index_positions_setups_on_setup_id", using: :btree
   end
 
   create_table "positions_users", force: :cascade do |t|
@@ -48,6 +55,11 @@ ActiveRecord::Schema.define(version: 20170508230016) do
   end
 
   create_table "schedules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "setups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -99,6 +111,8 @@ ActiveRecord::Schema.define(version: 20170508230016) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "positions_setups", "positions"
+  add_foreign_key "positions_setups", "setups"
   add_foreign_key "positions_users", "positions"
   add_foreign_key "positions_users", "users"
   add_foreign_key "rosters_team_members", "rosters"
