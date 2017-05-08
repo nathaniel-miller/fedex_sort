@@ -21,6 +21,8 @@ class RostersController < ApplicationController
 
   # GET /rosters/1/edit
   def edit
+    @user = current_user
+    @team_members = @user.team_members
   end
 
   # POST /rosters
