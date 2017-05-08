@@ -1,4 +1,18 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @roster.name %></h1>
+
+<table>
+  <tbody>
+    <% @roster.team_members.each do |t| %>
+      <tr>
+        <td>Name: </td>
+        <td><%= t.full_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 <%= link_to 'Edit', edit_roster_path(@roster) %> |
 <%= link_to 'Back', rosters_path %>
