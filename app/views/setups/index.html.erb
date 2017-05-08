@@ -12,6 +12,10 @@
   <tbody>
     <% @setups.each do |setup| %>
       <tr>
+        <td>Name: </td>
+        <td><%= setup.name %></td>
+      </tr>
+      <tr>
         <td><%= link_to 'Show', setup %></td>
         <td><%= link_to 'Edit', edit_setup_path(setup) %></td>
         <td><%= link_to 'Destroy', setup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
