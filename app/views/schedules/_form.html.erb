@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="actions">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.collection_select :setup_ids, @setups, :id, :name %>
+    <%= f.collection_select :roster_ids, @rosters, :id, :name %>
+    <%= f.hidden_field :user_id, :value => @user.id %>
     <%= f.submit %>
   </div>
 <% end %>
