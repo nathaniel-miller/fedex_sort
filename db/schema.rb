@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509031336) do
+ActiveRecord::Schema.define(version: 20170509034842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170509031336) do
     t.boolean  "light_duty_friendly", default: false
     t.boolean  "newbie_friendly",     default: false
     t.boolean  "takes_extra",         default: false
+    t.integer  "responsibility_id"
   end
 
   create_table "positions_setups", force: :cascade do |t|
@@ -41,9 +42,11 @@ ActiveRecord::Schema.define(version: 20170509031336) do
   end
 
   create_table "responsibilities", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "schedule_id"
+    t.integer  "team_member_id"
+    t.integer  "position_id"
   end
 
   create_table "rosters", force: :cascade do |t|
@@ -102,6 +105,7 @@ ActiveRecord::Schema.define(version: 20170509031336) do
     t.boolean  "extra",              default: false
     t.boolean  "light_duty",         default: false
     t.integer  "permanent_position", default: 0
+    t.integer  "responsibility_id"
   end
 
   create_table "team_members_users", force: :cascade do |t|
