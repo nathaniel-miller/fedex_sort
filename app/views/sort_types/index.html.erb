@@ -12,6 +12,10 @@
   <tbody>
     <% @sort_types.each do |sort_type| %>
       <tr>
+        <td>Name: </td>
+        <td><%= sort_type.name %></td>
+      </tr>
+      <tr>
         <td><%= link_to 'Show', sort_type %></td>
         <td><%= link_to 'Edit', edit_sort_type_path(sort_type) %></td>
         <td><%= link_to 'Destroy', sort_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
