@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509031336) do
+ActiveRecord::Schema.define(version: 20170509032156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 20170509031336) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "schedule_id"
+  end
+
+  create_table "responsibilities_team_members", force: :cascade do |t|
+    t.integer "responsibility_id"
+    t.integer "team_member_id"
+    t.index ["responsibility_id"], name: "index_responsibilities_team_members_on_responsibility_id", using: :btree
+    t.index ["team_member_id"], name: "index_responsibilities_team_members_on_team_member_id", using: :btree
   end
 
   create_table "rosters", force: :cascade do |t|
@@ -132,6 +139,8 @@ ActiveRecord::Schema.define(version: 20170509031336) do
   add_foreign_key "positions_setups", "setups"
   add_foreign_key "positions_users", "positions"
   add_foreign_key "positions_users", "users"
+  add_foreign_key "responsibilities_team_members", "responsibilities"
+  add_foreign_key "responsibilities_team_members", "team_members"
   add_foreign_key "rosters_team_members", "rosters"
   add_foreign_key "rosters_team_members", "team_members"
   add_foreign_key "schedules_sort_types", "schedules"
