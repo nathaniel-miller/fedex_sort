@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :responsibilities
   resources :setups
   resources :sorts
   resources :sort_types
