@@ -69,6 +69,12 @@ class SortTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sort_type_params
-      params.fetch(:sort_type, {})
+      params.require(:sort_type).permit(
+        :name,
+        :start_date,
+        :end_date,
+        :roster_id,
+        :setup_id
+      )
     end
 end
