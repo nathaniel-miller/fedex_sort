@@ -12,6 +12,16 @@
   <% end %>
 
   <div class="actions">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+    <%= f.label :end_date %><br />
+    <%= f.date_select :end_date %>
+    <%= f.label :setup %><br />
+    <%= f.collection_select :setup_id, Setup.all, :id, :name %>
+    <%= f.label :roster %><br />
+    <%= f.collection_select :roster_id, Roster.all, :id, :name %>
     <%= f.submit %>
   </div>
 <% end %>
