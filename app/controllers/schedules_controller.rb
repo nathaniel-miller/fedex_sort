@@ -73,6 +73,10 @@ class SchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def schedule_params
-      params.fetch(:schedule, {})
+      params.require(:schedule).permit(
+        :start_date,
+        :end_date,
+        :sort_type_ids => []
+      )
     end
 end
