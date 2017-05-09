@@ -11,6 +11,10 @@
 
   <tbody>
     <% @schedules.each do |schedule| %>
+    <tr>
+      <td>Dates: </td>
+      <td><%= "#{schedule.start_date} - #{schedule.end_date}" %></td>
+    </tr>
       <tr>
         <td><%= link_to 'Show', schedule %></td>
         <td><%= link_to 'Edit', edit_schedule_path(schedule) %></td>
