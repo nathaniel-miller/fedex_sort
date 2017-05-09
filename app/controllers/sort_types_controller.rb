@@ -71,8 +71,6 @@ class SortTypesController < ApplicationController
     def sort_type_params
       params.require(:sort_type).permit(
         :name,
-        :start_date,
-        :end_date,
         :roster_id,
         :setup_id
       )
