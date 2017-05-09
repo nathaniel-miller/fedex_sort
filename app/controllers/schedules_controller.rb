@@ -14,11 +14,15 @@ class SchedulesController < ApplicationController
 
   # GET /schedules/new
   def new
+    @user = current_user
+    @sort_types = SortType.all
     @schedule = Schedule.new
   end
 
   # GET /schedules/1/edit
   def edit
+    @user = current_user
+    @sort_types = SortType.all
   end
 
   # POST /schedules
