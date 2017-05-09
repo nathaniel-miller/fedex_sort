@@ -9,7 +9,7 @@
     <% @schedule.responsibilities.each do |r| %>
       <tr>
         <td><%= r.position.name %></td>
-        <td><%= r.team_member.full_name %></td>
+        <td><%#= r.team_member.full_name %></td>
       </tr>
     <% end %>
   </tbody>

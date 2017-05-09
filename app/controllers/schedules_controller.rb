@@ -29,6 +29,7 @@ class SchedulesController < ApplicationController
   # POST /schedules.json
   def create
     @schedule = Schedule.new(schedule_params)
+    @schedule.generate_responsibilites if @schedule.valid?
 
     respond_to do |format|
       if @schedule.save
