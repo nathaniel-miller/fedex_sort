@@ -15,14 +15,14 @@ class SchedulesController < ApplicationController
   # GET /schedules/new
   def new
     @user = current_user
-    @sort_types = SortType.all
+    @sorts = Sort.all
     @schedule = Schedule.new
   end
 
   # GET /schedules/1/edit
   def edit
     @user = current_user
-    @sort_types = SortType.all
+    @sorts = Sort.all
   end
 
   # POST /schedules
@@ -77,7 +77,7 @@ class SchedulesController < ApplicationController
       params.require(:schedule).permit(
         :start_date,
         :end_date,
-        :sort_type_ids => []
+        :sort_ids => []
       )
     end
 end

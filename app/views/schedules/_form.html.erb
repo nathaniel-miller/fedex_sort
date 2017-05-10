@@ -17,7 +17,7 @@
     <%= f.label :end_date %>
     <%= f.date_select :end_date %>
     <%= f.label :sort_types %>
-    <%= f.collection_check_boxes :sort_type_ids, @sort_types, :id, :name %>
+    <%= f.collection_check_boxes :sort_ids, @sorts, :id, :name %>
     <%= f.hidden_field :user_id, :value => @user.id %>
     <%= f.submit %>
   </div>
