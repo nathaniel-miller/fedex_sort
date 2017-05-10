@@ -1,10 +1,10 @@
 class Schedule < ApplicationRecord
-  has_and_belongs_to_many :sort_types
-  has_many :responsibilities
+  has_many :sorts
 
   def generate_responsibilites
 
     sort_types.each do |st|
+
       st.setup.positions.each do |p|
         r = Responsibility.create
         r.position = p
@@ -14,6 +14,11 @@ class Schedule < ApplicationRecord
 
     responsibilities
 
+  end
+
+  def generate_responsibilites
+
+    sort_types
   end
 
 end
