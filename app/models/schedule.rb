@@ -1,6 +1,7 @@
 class Schedule < ApplicationRecord
   has_many :sorts
   accepts_nested_attributes_for :sorts
+  belongs_to :user
 
   def generate_responsibilites
 

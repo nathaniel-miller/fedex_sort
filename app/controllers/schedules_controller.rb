@@ -29,7 +29,6 @@ class SchedulesController < ApplicationController
   # POST /schedules
   # POST /schedules.json
   def create
-    byebug
     @schedule = Schedule.new(schedule_params)
     @schedule.generate_responsibilites if @schedule.valid?
 
