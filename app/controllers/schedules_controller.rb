@@ -1,6 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
-
+  # before_action :update_sort_dates, only: [:create, :update]
   # GET /schedules
   # GET /schedules.json
   def index
@@ -15,19 +15,21 @@ class SchedulesController < ApplicationController
   # GET /schedules/new
   def new
     @user = current_user
-    @sorts = Sort.all
+    # @sorts = Sort.all
+    @sort_types = SortType.all
     @schedule = Schedule.new
   end
 
   # GET /schedules/1/edit
   def edit
     @user = current_user
-    @sorts = Sort.all
+    @sort_types = SortType.all
   end
 
   # POST /schedules
   # POST /schedules.json
   def create
+    byebug
     @schedule = Schedule.new(schedule_params)
     @schedule.generate_responsibilites if @schedule.valid?
 
@@ -72,12 +74,31 @@ class SchedulesController < ApplicationController
       @schedule = Schedule.find(params[:id])
     end
 
+    # def update_sort_dates
+    #   byebug
+    #   schedule_params[:sorts_attributes]["0"]["start_date(1i)"] = schedule_params["start_date(1i)"]
+    #   schedule_params[:sorts_attributes]["0"]["start_date(2i)"] = schedule_params["start_date(2i)"]
+    #   schedule_params[:sorts_attributes]["0"]["start_date(3i)"] = schedule_params["start_date(3i)"]
+    #
+    # end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def schedule_params
+      sort = params[:schedule][:sorts_attributes]["0"]
+      schedule = params[:schedule]
+
+      sort["start_date(1i)"] = schedule["start_date(1i)"]
+      sort["start_date(2i)"] = schedule["start_date(2i)"]
+      sort["start_date(3i)"] = schedule["start_date(3i)"]
+      sort["end_date(1i)"]   = schedule["end_date(1i)"]
+      sort["end_date(2i)"]   = schedule["end_date(2i)"]
+      sort["end_date(3i)"]   = schedule["end_date(3i)"]
+
       params.require(:schedule).permit(
         :start_date,
         :end_date,
-        :sort_ids => []
+        :user_id,
+        :sorts_attributes => [:start_date, :end_date, :sort_type_ids => []]
       )
     end
 end

@@ -1,5 +1,6 @@
 class Schedule < ApplicationRecord
   has_many :sorts
+  accepts_nested_attributes_for :sorts
 
   def generate_responsibilites
 
@@ -19,6 +20,11 @@ class Schedule < ApplicationRecord
   def generate_responsibilites
 
     sort_types
+  end
+
+
+  def sorts_attributes=(attributes)
+    byebug
   end
 
 end
