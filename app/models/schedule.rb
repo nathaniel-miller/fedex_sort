@@ -4,6 +4,10 @@ class Schedule < ApplicationRecord
 
   accepts_nested_attributes_for :sorts
 
+  def dates
+    start_date..end_date
+  end
+
 
 
 
