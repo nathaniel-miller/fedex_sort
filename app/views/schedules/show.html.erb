@@ -2,15 +2,21 @@
 
 <table>
   <tbody>
-    <tr>
-      <td>Position: </td>
-      <td>Team Member: </td>
-    </tr>
-    <% @schedule.responsibilities.each do |r| %>
+    <% @schedule.sorts.each do |sort| %>
       <tr>
-        <td><%= r.position.name %></td>
-        <td><%#= r.team_member.full_name %></td>
+        <td>Sort: </td>
+        <td><%= sort.sort_type.name %></td>
       </tr>
+      <tr>
+        <td>Position: </td>
+        <td>Team Member: </td>
+      </tr>
+      <% sort.responsibilities.each do |r| %>
+        <tr>
+          <td><%= r.position.name  %></td>
+          <td><%= r.team_member.try(:full_name) %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

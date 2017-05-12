@@ -4,25 +4,7 @@ class Schedule < ApplicationRecord
 
   accepts_nested_attributes_for :sorts
 
-  # def generate_responsibilites
-  #
-  #   sort_types.each do |st|
-  #
-  #     st.setup.positions.each do |p|
-  #       r = Responsibility.create
-  #       r.position = p
-  #       responsibilities << r
-  #     end
-  #   end
-  #
-  #   responsibilities
-  #
-  # end
-  #
-  # def generate_responsibilites
-  #
-  #   sort_types
-  # end
+
 
 
   def sorts_attributes=(attributes)
@@ -39,6 +21,7 @@ class Schedule < ApplicationRecord
         end_date: ed
       )
 
+      sort.generate_responsibilites
       sort.schedule = self
       self.sorts << sort
     end
