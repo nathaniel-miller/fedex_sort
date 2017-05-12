@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511011827) do
+ActiveRecord::Schema.define(version: 20170512202234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,11 +79,18 @@ ActiveRecord::Schema.define(version: 20170511011827) do
   end
 
   create_table "sort_types", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "name"
     t.integer  "roster_id"
     t.integer  "setup_id"
+    t.boolean  "mon",        default: false
+    t.boolean  "tue",        default: false
+    t.boolean  "wed",        default: false
+    t.boolean  "thu",        default: false
+    t.boolean  "fri",        default: false
+    t.boolean  "sat",        default: false
+    t.boolean  "sun",        default: false
   end
 
   create_table "sorts", force: :cascade do |t|

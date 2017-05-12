@@ -12,12 +12,54 @@
   <% end %>
 
   <div class="actions">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-    <%= f.label :setup %><br />
-    <%= f.collection_select :setup_id, Setup.all, :id, :name %>
-    <%= f.label :roster %><br />
-    <%= f.collection_select :roster_id, Roster.all, :id, :name %>
+    <table>
+      <tbody>
+        <tr>
+          <td><%= f.label :name %></td>
+          <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :setup %></td>
+          <td><%= f.collection_select :setup_id, Setup.all, :id, :name %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :roster %></td>
+          <td><%= f.collection_select :roster_id, Roster.all, :id, :name %></td>
+        </tr>
+        <tr>
+          <td>Days Used:</td>
+          <td></td>
+          <td>Mon:</td>
+          <td><%= f.check_box :mon %></td>
+          <td>Tue:</td>
+          <td><%= f.check_box :tue %></td>
+          <td>Wed:</td>
+          <td><%= f.check_box :wed %></td>
+          <td>Thu:</td>
+          <td><%= f.check_box :thu %></td>
+          <td>Fri:</td>
+          <td><%= f.check_box :fri %></td>
+          <td>Sat:</td>
+          <td><%= f.check_box :sat %></td>
+          <td>Sun:</td>
+          <td><%= f.check_box :sun %></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <%= f.submit %>
   </div>
 <% end %>
