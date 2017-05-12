@@ -72,7 +72,14 @@ class SortTypesController < ApplicationController
       params.require(:sort_type).permit(
         :name,
         :roster_id,
-        :setup_id
+        :setup_id,
+        :mon,
+        :tue,
+        :wed,
+        :thu,
+        :fri,
+        :sat,
+        :sun
       )
     end
 end
