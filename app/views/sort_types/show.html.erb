@@ -1,4 +1,55 @@
 <p id="notice"><%= notice %></p>
+<h1><%= @sort_type.name %></h1>
+<h3>Days Used:</h3>
+<table>
+  <thead>
+    <th>Monday</th>
+    <th>Tuesday</th>
+    <th>Wednesday</th>
+    <th>Thursday</th>
+    <th>Friday</th>
+    <th>Saturday</th>
+    <th>Sunday</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= 'x' if @sort_type.mon %></td>
+      <td><%= 'x' if @sort_type.tue %></td>
+      <td><%= 'x' if @sort_type.wed %></td>
+      <td><%= 'x' if @sort_type.thu %></td>
+      <td><%= 'x' if @sort_type.fri %></td>
+      <td><%= 'x' if @sort_type.sat %></td>
+      <td><%= 'x' if @sort_type.sun %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1><%= @sort_type.name %> Roster</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td><h3>Name</h3></td>
+    </tr>
+      <% @sort_type.roster.team_members.each do |tm| %>
+        <tr><td><%= tm.full_name %></td></tr>
+      <% end %>
+  </tbody>
+</table>
+
+<h1><%= @sort_type.name %> Setup</h1>
+
+<table>
+  <tbody>
+    <tr>
+      <td><h3>Positions</h3></td>
+    </tr>
+      <% @sort_type.setup.positions.each do |p| %>
+        <tr><td><%= p.name %></td></tr>
+      <% end %>
+  </tbody>
+</table>
+
 
 <%= link_to 'Edit', edit_sort_type_path(@sort_type) %> |
 <%= link_to 'Back', sort_types_path %>
