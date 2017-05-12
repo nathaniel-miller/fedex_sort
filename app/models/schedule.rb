@@ -21,7 +21,7 @@ class Schedule < ApplicationRecord
         end_date: ed
       )
 
-      sort.generate_responsibilites
+      sort.generate_responsibilities
       sort.schedule = self
       self.sorts << sort
     end
