@@ -1,6 +1,7 @@
 class Schedule < ApplicationRecord
   has_many :sorts
   belongs_to :user
+  has_and_belongs_to_many :sort_types
 
   accepts_nested_attributes_for :sorts
 
