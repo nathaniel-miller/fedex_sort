@@ -14,7 +14,7 @@ class SortType < ApplicationRecord
     wdays << 3 if wed
     wdays << 4 if thu
     wdays << 5 if fri
-    wdays << 6 if Sat
+    wdays << 6 if sat
 
     wdays
   end
