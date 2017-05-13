@@ -27,7 +27,8 @@ class SchedulesController < ApplicationController
 
     respond_to do |format|
       if @schedule.save
-        @schedule.update(sort_params)
+        # @schedule.update(sort_params)
+        @schedule.create_sorts
 
         format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
         format.json { render :show, status: :created, location: @schedule }
@@ -67,23 +68,14 @@ class SchedulesController < ApplicationController
     params.require(:schedule).permit(
       :start_date,
       :end_date,
-      :user_id
+      :user_id,
+      :sort_type_ids => []
     )
   end
 
   def sort_params
-    # sort = params[:schedule][:sorts_attributes]["0"]
-    # schedule = params[:schedule]
-    #
-    # sort["start_date(1i)"] = schedule["start_date(1i)"]
-    # sort["start_date(2i)"] = schedule["start_date(2i)"]
-    # sort["start_date(3i)"] = schedule["start_date(3i)"]
-    # sort["end_date(1i)"]   = schedule["end_date(1i)"]
-    # sort["end_date(2i)"]   = schedule["end_date(2i)"]
-    # sort["end_date(3i)"]   = schedule["end_date(3i)"]
-
     params.require(:schedule).permit(
-      :sorts_attributes => [:date, :sort_type_ids => []]
+      :sorts_attributes => [:date]
     )
   end
 end

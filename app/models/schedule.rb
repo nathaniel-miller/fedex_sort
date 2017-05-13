@@ -9,6 +9,25 @@ class Schedule < ApplicationRecord
     start_date..end_date
   end
 
+  def create_sorts
+    sort_types.each do |st|
+      wdays = st.weekdays
+      dates_for_sorts = dates.to_a.select { |date| wdays.include? date.wday }
+
+
+      dates_for_sorts.each do |date|
+        sort = Sort.new
+        sort.sort_type_id = st.id
+        sort.date = date
+        sort.generate_responsibilities
+        sort.schedule = self
+        self.sorts << sort
+      end
+    end
+
+    byebug
+  end
+
 
 
 
