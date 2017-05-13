@@ -24,8 +24,7 @@
         </tr>
         <%= f.hidden_field :user_id, :value => @user.id %>
         <%= f.fields_for :sorts, schedule.sorts.build do |ff| %>
-            <%= ff.date_select :start_date, { :discard_day => true, :discard_month => true, :discard_year => true } %>
-            <%= ff.date_select :end_date, { :discard_day => true, :discard_month => true, :discard_year => true } %>
+            <%= ff.date_select :date, { :discard_day => true, :discard_month => true, :discard_year => true } %>
               <%= ff.collection_check_boxes :sort_type_ids, @sort_types, :id, :name, boolean_style: :inline do |st| %>
                 <tr>
                   <td><%= st.label %></td>

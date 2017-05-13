@@ -16,6 +16,7 @@ class SchedulesController < ApplicationController
 
   def new
     @schedule = Schedule.new
+    @sort_types = SortType.all
   end
 
   def edit
@@ -71,18 +72,18 @@ class SchedulesController < ApplicationController
   end
 
   def sort_params
-    sort = params[:schedule][:sorts_attributes]["0"]
-    schedule = params[:schedule]
-
-    sort["start_date(1i)"] = schedule["start_date(1i)"]
-    sort["start_date(2i)"] = schedule["start_date(2i)"]
-    sort["start_date(3i)"] = schedule["start_date(3i)"]
-    sort["end_date(1i)"]   = schedule["end_date(1i)"]
-    sort["end_date(2i)"]   = schedule["end_date(2i)"]
-    sort["end_date(3i)"]   = schedule["end_date(3i)"]
+    # sort = params[:schedule][:sorts_attributes]["0"]
+    # schedule = params[:schedule]
+    #
+    # sort["start_date(1i)"] = schedule["start_date(1i)"]
+    # sort["start_date(2i)"] = schedule["start_date(2i)"]
+    # sort["start_date(3i)"] = schedule["start_date(3i)"]
+    # sort["end_date(1i)"]   = schedule["end_date(1i)"]
+    # sort["end_date(2i)"]   = schedule["end_date(2i)"]
+    # sort["end_date(3i)"]   = schedule["end_date(3i)"]
 
     params.require(:schedule).permit(
-      :sorts_attributes => [:start_date, :end_date, :sort_type_ids => []]
+      :sorts_attributes => [:date, :sort_type_ids => []]
     )
   end
 end
