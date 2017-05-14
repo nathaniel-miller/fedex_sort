@@ -1,17 +1,37 @@
 <p id="notice"><%= notice %></p>
 
-<table>
-  <tbody>
-    <% @sort_types.each do |sort_type| %>
-      <h1><%= sort_type.name %></h1>
-      <% sorts = @sorts.where(sort_type_id: sort_type.id) %>
-      <% sorts.each do |sort| %>
-        <%= sort.date.strftime("%a. %b %d") %>
-        <%= sort.start_time.strftime("%H:%M") %>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+
+<% @sort_types.each do |sort_type| %>
+  <% sorts = @sorts.where(sort_type_id: sort_type.id) %>
+
+  <h1><%= sort_type.name %></h1>
+  <table>
+    <thead>
+      <tr>
+        <% sorts.each do |sort| %>
+            <th><%= sort.date.strftime("%a. %b %d") %></th>
+            <th><%= sort.start_time.strftime("%H:%M") %></th>
+        <% end %>
+      </tr>
+    </thead>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <% sorts.each do |sort| %>
+          <% sort.responsibilities.each do |r| %>
+              <td><%= r.team_member.try(:full_name) %></td>
+              <td><%= r.position.try(:name) %></td>
+          <% end %>
+        <% end %>
+      </tr>
+
+    </tbody>
+  </table>
+<% end %>
+
+
 
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
