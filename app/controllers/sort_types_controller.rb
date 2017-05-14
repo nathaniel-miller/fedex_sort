@@ -73,6 +73,7 @@ class SortTypesController < ApplicationController
         :name,
         :roster_id,
         :setup_id,
+        :start_time,
         :mon,
         :tue,
         :wed,

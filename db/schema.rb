@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170513163402) do
+ActiveRecord::Schema.define(version: 20170513212546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20170513163402) do
     t.boolean  "fri",        default: false
     t.boolean  "sat",        default: false
     t.boolean  "sun",        default: false
+    t.time     "start_time"
   end
 
   create_table "sorts", force: :cascade do |t|
@@ -105,6 +106,7 @@ ActiveRecord::Schema.define(version: 20170513163402) do
     t.integer "schedule_id"
     t.integer "sort_type_id"
     t.date    "date"
+    t.time    "start_time"
   end
 
   create_table "team_members", force: :cascade do |t|

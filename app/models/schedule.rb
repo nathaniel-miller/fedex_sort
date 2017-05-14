@@ -19,13 +19,13 @@ class Schedule < ApplicationRecord
         sort = Sort.new
         sort.sort_type_id = st.id
         sort.date = date
+        sort.start_time = st.start_time
         sort.generate_responsibilities
         sort.schedule = self
         self.sorts << sort
       end
     end
 
-    byebug
   end
 
 

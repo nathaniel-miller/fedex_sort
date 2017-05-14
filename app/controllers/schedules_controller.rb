@@ -12,6 +12,8 @@ class SchedulesController < ApplicationController
   end
 
   def show
+    @sort_types = @schedule.sort_types.sort_by { |type| type.start_time }
+    @sorts = @schedule.sorts
   end
 
   def new

@@ -27,6 +27,10 @@
           <td><%= f.collection_select :roster_id, Roster.all, :id, :name %></td>
         </tr>
         <tr>
+          <td><%= f.label :start_time %></td>
+          <td><%= f.time_select :start_time %></td>
+        </tr>
+        <tr>
           <td>Days Used:</td>
           <td></td>
           <td>Mon:</td>

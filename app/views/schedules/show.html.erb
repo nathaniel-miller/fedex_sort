@@ -2,28 +2,12 @@
 
 <table>
   <tbody>
-    <% @schedule.sorts.each do |sort| %>
-      <tr>
-        <td>Sort: </td>
-        <td><%= sort.sort_type.name %></td>
-      </tr>
-      <tr>
-        <td>Team Member: </td>
-        <td>Position: </td>
-        <td>Position: </td>
-        <td>Position: </td>
-        <td>Position: </td>
-        <td>Position: </td>
-      </tr>
-      <% sort.responsibilities.each do |r| %>
-        <tr>
-          <td><%= r.team_member.try(:full_name) %></td>
-          <td><%= r.position.name  %></td>
-          <td><%= r.position.name  %></td>
-          <td><%= r.position.name  %></td>
-          <td><%= r.position.name  %></td>
-          <td><%= r.position.name  %></td>
-        </tr>
+    <% @sort_types.each do |sort_type| %>
+      <h1><%= sort_type.name %></h1>
+      <% sorts = @sorts.where(sort_type_id: sort_type.id) %>
+      <% sorts.each do |sort| %>
+        <%= sort.date.strftime("%a. %b %d") %>
+        <%= sort.start_time.strftime("%H:%M") %>
       <% end %>
     <% end %>
   </tbody>
