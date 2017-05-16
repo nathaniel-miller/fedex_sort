@@ -9,14 +9,14 @@
 
     <tr>
       <th>Date:</th>
-      <% @schedule.dates.each do |date| %>
+      <% @dates.each do |date| %>
         <td><%= date.strftime("%a. %b %d") %></td>
       <% end %>
     </tr>
 
     <tr>
       <th>Start Time:</th>
-      <% @schedule.dates.each do |date| %>
+      <% @dates.each do |date| %>
         <% sort = get_sort(sort_type.id, date) %>
         <% unless sort.nil? %>
           <td><%= sort.start_time.strftime("%H:%M") %></td>
@@ -28,7 +28,7 @@
 
     <tr>
       <th>Team Member:</th>
-      <% @schedule.dates.each do |date| %>
+      <% @dates.each do |date| %>
         <% sort = get_sort(sort_type.id, date) %>
         <% unless sort.nil? %>
           <th><%= Position %></th>
@@ -41,7 +41,7 @@
     <% sort_type.roster.team_members.each do |team_member| %>
       <tr>
         <td><%= team_member.full_name%></td>
-        <% @schedule.dates.each do |date| %>
+        <% @dates.each do |date| %>
           <% sort = get_sort(sort_type.id, date) %>
           <% unless sort.nil? %>
             <% @r = sort.responsibilities.find_by(team_member_id: team_member.id) %>
