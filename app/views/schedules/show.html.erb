@@ -1,38 +1,60 @@
 <p id="notice"><%= notice %></p>
 
+<table>
+  <% @sort_types.each do |sort_type| %>
 
-<% @sort_types.each do |sort_type| %>
-  <% sorts = @sorts.where(sort_type_id: sort_type.id) %>
+    <tr>
+      <td colspan="15"><h1><%= sort_type.name %></h1></td>
+    </tr>
 
-  <h1><%= sort_type.name %></h1>
-  <table>
-    <thead>
-      <tr>
-        <% sorts.each do |sort| %>
-            <th><%= sort.date.strftime("%a. %b %d") %></th>
-            <th><%= sort.start_time.strftime("%H:%M") %></th>
+    <tr>
+      <th>Date:</th>
+      <% @schedule.dates.each do |date| %>
+        <td><%= date.strftime("%a. %b %d") %></td>
+      <% end %>
+    </tr>
+
+    <tr>
+      <th>Start Time:</th>
+      <% @schedule.dates.each do |date| %>
+        <% @sort = @sorts.where(sort_type_id: sort_type.id).find_by(date: date) %>
+        <% unless @sort.nil? %>
+          <td><%= @sort.start_time.strftime("%H:%M") %></td>
+        <% else %>
+          <td></td>
         <% end %>
-      </tr>
-    </thead>
-  </table>
+      <% end %>
+    </tr>
 
-  <table>
-    <tbody>
+    <tr>
+      <th>Team Member:</th>
+      <% @schedule.dates.each do |date| %>
+        <% @sort = @sorts.where(sort_type_id: sort_type.id).find_by(date: date) %>
+        <% unless @sort.nil? %>
+          <th><%= Position %></th>
+        <% else %>
+          <td></td>
+        <% end %>
+      <% end %>
+    </tr>
+
+    <% sort_type.roster.team_members.each do |team_member| %>
       <tr>
-        <% sorts.each do |sort| %>
-          <% sort.responsibilities.each do |r| %>
-              <td><%= r.team_member.try(:full_name) %></td>
-              <td><%= r.position.try(:name) %></td>
+        <td><%= team_member.full_name%></td>
+        <% @schedule.dates.each do |date| %>
+          <% @sort = @sorts.where(sort_type_id: sort_type.id).find_by(date: date) %>
+          <% unless @sort.nil? %>
+            <% @r = @sort.responsibilities.find_by(team_member_id: team_member.id) %>
+            <td><%= @r.try(:position).try(:name) %></td>
+          <% else %>
+            <td></td>
           <% end %>
         <% end %>
       </tr>
+    <% end %>
 
-    </tbody>
-  </table>
-<% end %>
-
-
-
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
 <%= link_to 'Back', schedules_path %>
