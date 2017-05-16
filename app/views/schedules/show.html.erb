@@ -17,9 +17,9 @@
     <tr>
       <th>Start Time:</th>
       <% @schedule.dates.each do |date| %>
-        <% @sort = @sorts.where(sort_type_id: sort_type.id).find_by(date: date) %>
-        <% unless @sort.nil? %>
-          <td><%= @sort.start_time.strftime("%H:%M") %></td>
+        <% sort = get_sort(sort_type.id, date) %>
+        <% unless sort.nil? %>
+          <td><%= sort.start_time.strftime("%H:%M") %></td>
         <% else %>
           <td></td>
         <% end %>
@@ -29,8 +29,8 @@
     <tr>
       <th>Team Member:</th>
       <% @schedule.dates.each do |date| %>
-        <% @sort = @sorts.where(sort_type_id: sort_type.id).find_by(date: date) %>
-        <% unless @sort.nil? %>
+        <% sort = get_sort(sort_type.id, date) %>
+        <% unless sort.nil? %>
           <th><%= Position %></th>
         <% else %>
           <td></td>
@@ -42,9 +42,9 @@
       <tr>
         <td><%= team_member.full_name%></td>
         <% @schedule.dates.each do |date| %>
-          <% @sort = @sorts.where(sort_type_id: sort_type.id).find_by(date: date) %>
-          <% unless @sort.nil? %>
-            <% @r = @sort.responsibilities.find_by(team_member_id: team_member.id) %>
+          <% sort = get_sort(sort_type.id, date) %>
+          <% unless sort.nil? %>
+            <% @r = sort.responsibilities.find_by(team_member_id: team_member.id) %>
             <td><%= @r.try(:position).try(:name) %></td>
           <% else %>
             <td></td>
