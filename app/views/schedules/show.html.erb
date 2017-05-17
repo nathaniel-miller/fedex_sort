@@ -2,6 +2,7 @@
 
 <table>
   <% @sort_types.each do |sort_type| %>
+    <% @sort_data = sort_data(sort_type.id) %>
 
     <tr>
       <td colspan="<%= columns %>"><h1><%= sort_type.name %></h1></td>
@@ -9,48 +10,27 @@
 
     <tr>
       <th>Date:</th>
-      <% @dates.each do |date| %>
-        <td><%= date.strftime("%a. %b %d") %></td>
-      <% end %>
+      <%= raw @sort_data[:dates] %>
     </tr>
 
     <tr>
       <th>Start Time:</th>
-      <% @dates.each do |date| %>
-        <% sort = get_sort(sort_type.id, date) %>
-        <% unless sort.nil? %>
-          <td><%= sort.start_time.strftime("%H:%M") %></td>
-        <% else %>
-          <td></td>
-        <% end %>
-      <% end %>
+      <%= raw @sort_data[:start_times] %>
     </tr>
 
     <tr>
       <th>Team Member:</th>
-      <% @dates.each do |date| %>
-        <% sort = get_sort(sort_type.id, date) %>
-        <% unless sort.nil? %>
-          <th><%= Position %></th>
-        <% else %>
-          <td></td>
-        <% end %>
-      <% end %>
+      <%= raw @sort_data[:position_headers] %>
     </tr>
 
-    <% sort_type.roster.team_members.each do |team_member| %>
+    <% get_team_members(sort_type).each do |team_member| %>
+
       <tr>
         <td><%= team_member.full_name%></td>
-        <% @dates.each do |date| %>
-          <% sort = get_sort(sort_type.id, date) %>
-          <% unless sort.nil? %>
-            <% @r = sort.responsibilities.find_by(team_member_id: team_member.id) %>
-            <td><%= @r.try(:position).try(:name) %></td>
-          <% else %>
-            <td></td>
-          <% end %>
-        <% end %>
+        <% @position_data = position_data(sort_type.id, team_member.id) %>
+        <%= raw @position_data[:names] %>
       </tr>
+
     <% end %>
 
   <% end %>
