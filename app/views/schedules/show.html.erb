@@ -1,40 +1,47 @@
 <p id="notice"><%= notice %></p>
 
-<table>
-  <% @sort_types.each do |sort_type| %>
-    <% @sort_data = sort_data(sort_type.id) %>
+  <% @date_group.each do |dates| %>
+    <% @dates = dates %>
 
-    <tr>
-      <td colspan="<%= columns %>"><h1><%= sort_type.name %></h1></td>
-    </tr>
+    <table>
+      <% @sort_types.each do |sort_type| %>
+        <% @sort_data = sort_data(sort_type.id) %>
 
-    <tr>
-      <th>Date:</th>
-      <%= raw @sort_data[:dates] %>
-    </tr>
+        <tr>
+          <td colspan="<%= columns %>"><h1><%= sort_type.name %></h1></td>
+        </tr>
 
-    <tr>
-      <th>Start Time:</th>
-      <%= raw @sort_data[:start_times] %>
-    </tr>
+        <tr>
+          <th>Date:</th>
+          <%= raw @sort_data[:dates] %>
+        </tr>
 
-    <tr>
-      <th>Team Member:</th>
-      <%= raw @sort_data[:position_headers] %>
-    </tr>
+        <tr>
+          <th>Start Time:</th>
+          <%= raw @sort_data[:start_times] %>
+        </tr>
 
-    <% get_team_members(sort_type).each do |team_member| %>
+        <tr>
+          <th>Team Member:</th>
+          <%= raw @sort_data[:position_headers] %>
+        </tr>
 
-      <tr>
-        <td><%= team_member.full_name%></td>
-        <% @position_data = position_data(sort_type.id, team_member.id) %>
-        <%= raw @position_data[:names] %>
-      </tr>
+        <% get_team_members(sort_type).each do |team_member| %>
 
-    <% end %>
+          <tr>
+            <td><%= team_member.full_name%></td>
+            <% @position_data = position_data(sort_type.id, team_member.id) %>
+            <%= raw @position_data[:names] %>
+          </tr>
+
+        <% end %>
+
+      <% end %>
+    </table>
 
   <% end %>
-</table>
+
+
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
 <%= link_to 'Back', schedules_path %>

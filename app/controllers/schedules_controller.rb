@@ -14,7 +14,7 @@ class SchedulesController < ApplicationController
   def show
     @sort_types = @schedule.sort_types.sort_by { |type| type.start_time }
     @sorts = @schedule.sorts
-    @dates = @schedule.dates
+    @date_group = date_group
   end
 
   def new
@@ -80,5 +80,34 @@ class SchedulesController < ApplicationController
     params.require(:schedule).permit(
       :sorts_attributes => [:date]
     )
+  end
+
+  def date_group
+    dates = @schedule.dates.to_a
+    count = dates.count
+
+    if count > 7
+      dgc = date_group_count(count)
+      date_group = Array.new(dgc, [])
+      index = 0
+
+      dgc.times do |i|
+        date_group[i] = dates.slice(index, 7)
+        index += 7
+      end
+
+    else
+      date_group = dates
+    end
+
+
+    date_group
+  end
+
+  def date_group_count(count)
+    count % 7 > 0 ? left_over = 1: left_over = 0
+    core = count / 7
+
+    core + left_over
   end
 end
