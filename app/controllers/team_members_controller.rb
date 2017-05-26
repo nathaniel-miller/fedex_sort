@@ -11,7 +11,7 @@ class TeamMembersController < ApplicationController
     else
      @team_members = current_user.team_members
    end
-   
+
   end
 
   # GET /team_members/1
@@ -33,9 +33,10 @@ class TeamMembersController < ApplicationController
   def create
     @user = current_user
     @team_member = TeamMember.new(team_member_params)
-
+    @team_member.dates_unavailable = dates_unavailable
     respond_to do |format|
       if @team_member.save
+
         @user.team_members << @team_member
 
         format.html { redirect_to @team_member, notice: 'Team member was successfully created.' }
@@ -79,17 +80,40 @@ class TeamMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_member_params
-      # byebug
       # params.fetch(:team_member, {})
       params.require(:team_member).permit(
         :first_name,
         :last_name,
         :employee_number,
         :date_of_hire,
-        :vacation,
-        :absent,
         :extra,
         :light_duty
       )
+    end
+
+    def dates_unavailable
+      sd = params.require(:team_member).permit(
+        :unavailable_start_date
+      )
+
+      ed = params.require(:team_member).permit(
+        :unavailable_end_date
+      )
+
+      sd_year = sd["unavailable_start_date(1i)"]
+      sd_month = sd["unavailable_start_date(2i)"]
+      sd_day = sd["unavailable_start_date(3i)"]
+
+      ed_year = ed["unavailable_end_date(1i)"]
+      ed_month = ed["unavailable_end_date(2i)"]
+      ed_day = ed["unavailable_end_date(3i)"]
+
+
+
+      start_date = Date.parse("#{sd_year}/#{sd_month}/#{sd_day}")
+      end_date = Date.parse("#{ed_year}/#{ed_month}/#{ed_day}")
+
+      dates = start_date..end_date
+      dates.to_a
     end
 end

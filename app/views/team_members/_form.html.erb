@@ -21,10 +21,7 @@
       <%= f.text_field :employee_number %><br />
       <%= f.label :date_of_hire %><br />
       <%= f.date_select :date_of_hire %>
-      <%= f.label :unavailable_start_date %><br />
-      <%= f.date_select :unavailable_start_date, {:include_blank => true, :default => nil} %>
-      <%= f.label :unavailable_end_date %><br />
-      <%= f.date_select :unavailable_end_date, {:include_blank => true, :default => nil} %>
+      <%= render partial: "dates_unavailable", locals: {f: f} %>
       <%= f.label :extra %><br />
       <%= f.check_box :extra %>
       <%= f.label :light_duty %><br />
