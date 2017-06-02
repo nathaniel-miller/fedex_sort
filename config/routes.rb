@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   get '/dashboard', to: "home#dashboard", as: 'dashboard'
   get '/employees', to: "team_members#index", as: 'employees'
 
+  get "/add_dates_unavailable/" => 'team_members#add_dates_unavailable', as: 'add_dates_unavailable'
+
 end

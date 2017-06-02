@@ -1,0 +1,3 @@
+'<%= form_for(@team_member) do |ff| %>'
+  $('#dates').append('<%= escape_javascript(render partial: "dates_unavailable", locals: { f: ff }) %>');
+'<% end %>'

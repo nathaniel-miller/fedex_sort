@@ -33,7 +33,7 @@ class TeamMembersController < ApplicationController
   def create
     @user = current_user
     @team_member = TeamMember.new(team_member_params)
-    @team_member.dates_unavailable = dates_unavailable
+    # @team_member.dates_unavailable = dates_unavailable
     respond_to do |format|
       if @team_member.save
 
@@ -69,6 +69,13 @@ class TeamMembersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to team_members_url, notice: 'Team member was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def add_dates_unavailable
+    @team_member = TeamMember.new
+    respond_to do |format|
+      format.js
     end
   end
 

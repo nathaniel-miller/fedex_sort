@@ -21,7 +21,8 @@
       <%= f.text_field :employee_number %><br />
       <%= f.label :date_of_hire %><br />
       <%= f.date_select :date_of_hire %>
-      <%= render partial: "dates_unavailable", locals: {f: f} %>
+      <%= link_to "Add Dates Unavailable", add_dates_unavailable_path, :remote => true %>
+      <div id="dates"></div>
       <%= f.label :extra %><br />
       <%= f.check_box :extra %>
       <%= f.label :light_duty %><br />
