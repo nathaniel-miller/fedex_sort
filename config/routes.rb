@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   get '/employees', to: "team_members#index", as: 'employees'
 
   get "/add_dates_unavailable/" => 'team_members#add_dates_unavailable', as: 'add_dates_unavailable'
+  get "/remove_dates_unavailable/:id" => 'team_members#remove_dates_unavailable', as: 'remove_dates_unavailable'
 
 end
