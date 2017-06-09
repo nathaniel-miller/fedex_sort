@@ -1,8 +1,8 @@
 <% id = DateTime.now.to_i %>
 <div class="dates_unavailable" id="<%= id %>">
   <%= f.label :unavailable_start_date %><br />
-  <%= f.date_select :unavailable_start_date, {:include_blank => true, :default => nil} %>
+  <%= f.date_select :unavailable_start_date, {:prefix => "#{id}"} %>
   <%= f.label :unavailable_end_date %><br />
-  <%= f.date_select :unavailable_end_date, {:include_blank => true, :default => nil} %>
+  <%= f.date_select :unavailable_end_date, {:prefix => "#{id}"} %>
   <%= link_to "Remove", remove_dates_unavailable_path(id), :remote => true %>
 </div>

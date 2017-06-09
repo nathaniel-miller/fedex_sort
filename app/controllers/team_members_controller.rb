@@ -51,6 +51,8 @@ class TeamMembersController < ApplicationController
   # PATCH/PUT /team_members/1
   # PATCH/PUT /team_members/1.json
   def update
+    dates_unavailable
+
     respond_to do |format|
       if @team_member.update(team_member_params)
         format.html { redirect_to @team_member, notice: 'Team member was successfully updated.' }
@@ -106,28 +108,65 @@ class TeamMembersController < ApplicationController
     end
 
     def dates_unavailable
-      sd = params.require(:team_member).permit(
-        :unavailable_start_date
-      )
+      dates = []
 
-      ed = params.require(:team_member).permit(
-        :unavailable_end_date
-      )
+      get_date_ids.each do |id|
+        sd = params.require(id).permit(
+          :unavailable_start_date
+        )
 
-      sd_year = sd["unavailable_start_date(1i)"]
-      sd_month = sd["unavailable_start_date(2i)"]
-      sd_day = sd["unavailable_start_date(3i)"]
+        ed = params.require(id).permit(
+          :unavailable_end_date
+        )
 
-      ed_year = ed["unavailable_end_date(1i)"]
-      ed_month = ed["unavailable_end_date(2i)"]
-      ed_day = ed["unavailable_end_date(3i)"]
+        sd_year = sd["unavailable_start_date(1i)"]
+        sd_month = sd["unavailable_start_date(2i)"]
+        sd_day = sd["unavailable_start_date(3i)"]
 
+        ed_year = ed["unavailable_end_date(1i)"]
+        ed_month = ed["unavailable_end_date(2i)"]
+        ed_day = ed["unavailable_end_date(3i)"]
 
+        start_date = Date.parse("#{sd_year}/#{sd_month}/#{sd_day}")
+        end_date = Date.parse("#{ed_year}/#{ed_month}/#{ed_day}")
 
-      start_date = Date.parse("#{sd_year}/#{sd_month}/#{sd_day}")
-      end_date = Date.parse("#{ed_year}/#{ed_month}/#{ed_day}")
+        dates << [start_date, end_date]
+      end
+      byebug
+      dates
+    end
 
-      dates = start_date..end_date
-      dates.to_a
+    # def dates_unavailable
+    #   dates = []
+    #
+    #   get_date_ids.each do |id|
+    #     sd = params.require(id).permit(
+    #       :unavailable_start_date
+    #     )
+    #
+    #     ed = params.require(id).permit(
+    #       :unavailable_end_date
+    #     )
+    #
+    #     sd_year = sd["unavailable_start_date(1i)"]
+    #     sd_month = sd["unavailable_start_date(2i)"]
+    #     sd_day = sd["unavailable_start_date(3i)"]
+    #
+    #     ed_year = ed["unavailable_end_date(1i)"]
+    #     ed_month = ed["unavailable_end_date(2i)"]
+    #     ed_day = ed["unavailable_end_date(3i)"]
+    #
+    #     start_date = Date.parse("#{sd_year}/#{sd_month}/#{sd_day}")
+    #     end_date = Date.parse("#{ed_year}/#{ed_month}/#{ed_day}")
+    #
+    #     ds = start_date..end_date
+    #     dates += ds.to_a
+    #   end
+    #
+    #   dates.uniq
+    # end
+
+    def get_date_ids
+      ids = params.keys.select {|k| k.scan(/\D/).empty?}
     end
 end
