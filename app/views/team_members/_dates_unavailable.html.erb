@@ -1,8 +1,10 @@
-<% id = DateTime.now.to_i %>
-<div class="dates_unavailable" id="<%= id %>">
-  <%= f.label :unavailable_start_date %><br />
-  <%= f.date_select :unavailable_start_date, {:prefix => "#{id}"} %>
-  <%= f.label :unavailable_end_date %><br />
-  <%= f.date_select :unavailable_end_date, {:prefix => "#{id}"} %>
-  <%= link_to "Remove", remove_dates_unavailable_path(id), :remote => true %>
+<% dates ||= [DateTime.now.to_i, DateTime.now.to_s, DateTime.now.to_s] %>
+<div class="dates_unavailable" id="<%= dates[0] %>">
+
+    <%= f.label :unavailable_start_date %><br />
+    <%= f.date_select :unavailable_start_date, {:prefix => "#{dates[0]}", :default => Date.parse(dates[1])} %>
+    <%= f.label :unavailable_end_date %><br />
+    <%= f.date_select :unavailable_end_date, {:prefix => "#{dates[0]}", :default => Date.parse(dates[2])} %>
+
+  <%= link_to "Remove", remove_dates_unavailable_path(dates[0]), :remote => true %>
 </div>

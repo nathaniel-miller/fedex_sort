@@ -33,7 +33,7 @@ class TeamMembersController < ApplicationController
   def create
     @user = current_user
     @team_member = TeamMember.new(team_member_params)
-    # @team_member.dates_unavailable = dates_unavailable
+    @team_member.dates_unavailable = dates_unavailable
     respond_to do |format|
       if @team_member.save
 
@@ -51,10 +51,8 @@ class TeamMembersController < ApplicationController
   # PATCH/PUT /team_members/1
   # PATCH/PUT /team_members/1.json
   def update
-    dates_unavailable
-
     respond_to do |format|
-      if @team_member.update(team_member_params)
+      if @team_member.update(team_member_params) && @team_member.update(dates_unavailable: dates_unavailable)
         format.html { redirect_to @team_member, notice: 'Team member was successfully updated.' }
         format.json { render :show, status: :ok, location: @team_member }
       else
@@ -130,9 +128,9 @@ class TeamMembersController < ApplicationController
         start_date = Date.parse("#{sd_year}/#{sd_month}/#{sd_day}")
         end_date = Date.parse("#{ed_year}/#{ed_month}/#{ed_day}")
 
-        dates << [start_date, end_date]
+        dates << [id, start_date, end_date]
       end
-      byebug
+
       dates
     end
 

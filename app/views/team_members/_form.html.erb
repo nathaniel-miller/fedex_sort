@@ -22,7 +22,11 @@
       <%= f.label :date_of_hire %><br />
       <%= f.date_select :date_of_hire %>
       <%= link_to "Add Dates Unavailable", add_dates_unavailable_path, :remote => true %>
-      <div id="dates"></div>
+      <div id="dates">
+        <% team_member.dates_unavailable.each do |date_pair| %>
+          <%= render partial: "dates_unavailable", locals: { f: f, dates: date_pair } %>
+        <% end %>
+      </div>
       <%= f.label :extra %><br />
       <%= f.check_box :extra %>
       <%= f.label :light_duty %><br />

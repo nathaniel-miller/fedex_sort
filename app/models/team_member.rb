@@ -6,4 +6,11 @@ class TeamMember < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def unavailable_start_date
+  end
+
+  def unavailable_end_date
+  end
+  
 end
