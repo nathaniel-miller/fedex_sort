@@ -30,9 +30,9 @@
       <%= f.label :extra %><br />
       <%= f.check_box :extra %>
       <%= f.label :light_duty %><br />
-      <%= f.check_box :light_duty %>
-      <%= f.label :permanent_position %><br />
-      <%= f.collection_select :permanent_position, Position.all, :id, :name %>
+      <%= f.check_box :light_duty %><br />
+      <%= link_to "Add Permanent Position", add_permanent_position_path, :remote => true %>
+      <div id="permanent-positions"></div>
       <%= f.submit %>
     <% end %>
   </div>

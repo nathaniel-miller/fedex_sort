@@ -1,0 +1,11 @@
+<% id = DateTime.now.to_i %>
+
+<div class="permanent_position" id="<%= id %>">
+
+  <%= f.label :permanent_position %><br />
+  <%= f.collection_select :permanent_position, Position.all, :id, :name %>
+  <%= f.label :for_sort %>
+  <%= f.collection_select :permanent_position, SortType.all, :id, :name %>
+
+  <%= link_to "Remove", remove_permanent_position_path(id), :remote => true %>
+</div>

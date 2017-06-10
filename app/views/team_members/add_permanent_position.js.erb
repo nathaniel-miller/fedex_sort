@@ -1,0 +1,3 @@
+'<%= form_for(@team_member) do |ff| %>'
+  $('#permanent-positions').append('<%= escape_javascript(render partial: "permanent_position", locals: { f: ff }) %>');
+'<% end %>'

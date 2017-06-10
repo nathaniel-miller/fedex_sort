@@ -21,13 +21,7 @@ module RGen
     end
   end
 
-  #Team Members from Roster only.
-  #Check for vactions
-  #Check for absents -> need something to set single dates here
-  #Check for fixed positions
-  #Check for light duty
-  #Check for newbie
 
-  # Will need sub groups - ex. list of newbie-friendly positions and new employees
+# Check for permanent positions
 
 end
