@@ -1,4 +1,4 @@
-<% dates ||= [DateTime.now.to_i, DateTime.now.to_s, DateTime.now.to_s] %>
+<% dates ||= [gen_id, DateTime.now.to_s, DateTime.now.to_s] %>
 <div class="dates_unavailable" id="<%= dates[0] %>">
 
     <%= f.label :unavailable_start_date %><br />
