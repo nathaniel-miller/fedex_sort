@@ -8,9 +8,16 @@ class TeamMember < ApplicationRecord
   end
 
   def unavailable_start_date
+    #Here as a method for form submission
   end
 
   def unavailable_end_date
+    #Here as a method for form submission
   end
-  
+
+  def newbie?
+    days = DateTime.now.mjd - self.date_of_hire.mjd
+    days < 28
+  end
+
 end
