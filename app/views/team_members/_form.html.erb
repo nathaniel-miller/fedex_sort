@@ -23,8 +23,8 @@
       <%= f.date_select :date_of_hire %>
       <%= link_to "Add Dates Unavailable", add_dates_unavailable_path, :remote => true %>
       <div id="dates">
-        <% team_member.dates_unavailable.each do |date_pair| %>
-          <%= render partial: "dates_unavailable", locals: { f: f, dates: date_pair } %>
+        <% team_member.dates_unavailable.each do |date_set| %>t
+          <%= render partial: "dates_unavailable", locals: { f: f, dates: date_set } %>
         <% end %>
       </div>
       <%= f.label :extra %><br />
@@ -32,7 +32,11 @@
       <%= f.label :light_duty %><br />
       <%= f.check_box :light_duty %><br />
       <%= link_to "Add Permanent Position", add_permanent_position_path, :remote => true %>
-      <div id="permanent-positions"></div>
+      <div id="permanent-positions">
+        <% team_member.permanent_positions.each do |position_set| %>
+          <%= render partial: "permanent_position", locals: { f: f, position: position_set } %>
+        <% end %>
+      </div>
       <%= f.submit %>
     <% end %>
   </div>

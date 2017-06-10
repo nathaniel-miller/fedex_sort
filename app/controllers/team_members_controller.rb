@@ -34,6 +34,8 @@ class TeamMembersController < ApplicationController
     @user = current_user
     @team_member = TeamMember.new(team_member_params)
     @team_member.dates_unavailable = dates_unavailable
+    @team_member.permanent_positions = permanent_positions
+
     respond_to do |format|
       if @team_member.save
 
@@ -52,7 +54,11 @@ class TeamMembersController < ApplicationController
   # PATCH/PUT /team_members/1.json
   def update
     respond_to do |format|
-      if @team_member.update(team_member_params) && @team_member.update(dates_unavailable: dates_unavailable)
+      if @team_member.update(team_member_params) && @team_member.update(
+          dates_unavailable: dates_unavailable,
+          permanent_positions: permanent_positions
+        )
+
         format.html { redirect_to @team_member, notice: 'Team member was successfully updated.' }
         format.json { render :show, status: :ok, location: @team_member }
       else
@@ -122,7 +128,7 @@ class TeamMembersController < ApplicationController
     def dates_unavailable
       dates = []
 
-      get_date_ids.each do |id|
+      get_ids.each do |id|
         sd = params.require(id).permit(
           :unavailable_start_date
         )
@@ -131,21 +137,43 @@ class TeamMembersController < ApplicationController
           :unavailable_end_date
         )
 
-        sd_year = sd["unavailable_start_date(1i)"]
-        sd_month = sd["unavailable_start_date(2i)"]
-        sd_day = sd["unavailable_start_date(3i)"]
+        unless sd.empty? || ed.empty?
+          sd_year = sd["unavailable_start_date(1i)"]
+          sd_month = sd["unavailable_start_date(2i)"]
+          sd_day = sd["unavailable_start_date(3i)"]
 
-        ed_year = ed["unavailable_end_date(1i)"]
-        ed_month = ed["unavailable_end_date(2i)"]
-        ed_day = ed["unavailable_end_date(3i)"]
+          ed_year = ed["unavailable_end_date(1i)"]
+          ed_month = ed["unavailable_end_date(2i)"]
+          ed_day = ed["unavailable_end_date(3i)"]
 
-        start_date = Date.parse("#{sd_year}/#{sd_month}/#{sd_day}")
-        end_date = Date.parse("#{ed_year}/#{ed_month}/#{ed_day}")
+          start_date = Date.parse("#{sd_year}/#{sd_month}/#{sd_day}")
+          end_date = Date.parse("#{ed_year}/#{ed_month}/#{ed_day}")
 
-        dates << [id, start_date, end_date]
+          dates << [id, start_date, end_date]
+        end
       end
 
       dates
+    end
+
+    def permanent_positions
+      positions = []
+
+      get_ids.each do |id|
+        pp = params.require(id).permit(
+          :position
+        )
+
+        st = params.require(id).permit(
+          :sort_type
+        )
+
+        unless pp.empty? || st.empty?
+          positions << [id, pp["position"], st["sort_type"]]
+        end
+      end
+
+      positions
     end
 
     # def dates_unavailable
@@ -178,7 +206,7 @@ class TeamMembersController < ApplicationController
     #   dates.uniq
     # end
 
-    def get_date_ids
+    def get_ids
       ids = params.keys.select {|k| k.scan(/\D/).empty?}
     end
 end

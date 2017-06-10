@@ -1,11 +1,19 @@
-<% id = gen_id %>
+<% position ||= [gen_id, "", ""] %>
+<% id = position[0] %>
 
 <div class="permanent_position" id="<%= id %>">
 
   <%= f.label :permanent_position %><br />
-  <%= f.collection_select :permanent_position, Position.all, :id, :name %>
+  <%= f.collection_select :permanent_positions, Position.all, :id, :name,
+    {prompt: "Select a Position", selected: "#{position[1]}"},
+    {name: "#{id}[position]"}
+  %>
+
   <%= f.label :for_sort %>
-  <%= f.collection_select :permanent_position, SortType.all, :id, :name %>
+  <%= f.collection_select :permanent_positions, SortType.all, :id, :name,
+    {prompt: "Select a Sort Type", selected: "#{position[2]}"},
+    {name: "#{id}[sort_type]"}
+  %>
 
   <%= link_to "Remove", remove_permanent_position_path(id), :remote => true %>
 </div>
