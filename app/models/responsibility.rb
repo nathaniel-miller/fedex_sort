@@ -1,5 +1,5 @@
 class Responsibility < ApplicationRecord
   belongs_to :sort
-  has_one :team_member
-  has_one :position
+  belongs_to :team_member
+  belongs_to :position
 end

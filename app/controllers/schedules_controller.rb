@@ -97,7 +97,7 @@ class SchedulesController < ApplicationController
       end
 
     else
-      date_group = dates
+      date_group = [dates]
     end
 
 
