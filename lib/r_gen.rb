@@ -1,9 +1,18 @@
 module RGen
+  #expects to be used by the Sort class.
+  #Each Sort is the intersection of a date and a sort type. So if a schedule
+  #has 5 dates and 3 sort_types it will have 15 sorts.
+
+  #A 'responsibility' is created for every position in a sort. If a sort type
+  # setup has 5 positions, that sort will have 5 responsibilities, 1 for each
+  # position.
+
+  #A team_member member is then assigned to cover that responsibility.
+
   def generate_responsibilities
 
     generate_positions
-    generate_team_members
-
+    assign_team_members
 
   end
 
@@ -15,7 +24,7 @@ module RGen
     end
   end
 
-  def generate_team_members
+  def assign_team_members
     responsibilities.each_with_index do |r, i|
       r.update(
         team_member_id: sort_type.roster.team_members[i].id
