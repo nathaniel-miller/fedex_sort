@@ -1,5 +1,5 @@
 module RGen
-  attr_reader :roster,
+  attr_reader :team_members,
               :team_members_with_pps,
               :positions,
               :r,
@@ -17,6 +17,7 @@ module RGen
 
   def generate_responsibilities
     set_positions
+    set_team_members
     cache_tms_with_pps
     create_responsibilities
     assign_responsibilities
@@ -35,14 +36,34 @@ module RGen
     @positions = sort_type.setup.positions
   end
 
-  def set_roster
-    @roster = sort_type.roster
+  def set_team_members
+    @team_members = sort_type.roster.team_members
+    check_for_unavailable_team_members
   end
 
   def cache_tms_with_pps
-    @team_members_with_pps = sort_type.roster.team_members.where(
-      "permanent_positions != '{}'"
-    )
+    @team_members_with_pps = team_members.reject do |tm|
+      tm.permanent_positions.empty?
+    end
+  end
+
+  def check_for_unavailable_team_members
+    @team_members = team_members.reject do |team_member|
+      is_unavailable?(team_member)
+    end
+  end
+
+  def is_unavailable?(team_member)
+    unavailable = false
+
+    team_member.dates_unavailable.each do |date_data|
+      if (Date.parse(date_data[1])..Date.parse(date_data[2])) === self.date
+        unavailable = true
+        break
+      end
+    end
+
+    unavailable
   end
 
   def create_responsibilities
