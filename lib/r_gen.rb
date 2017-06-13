@@ -1,6 +1,7 @@
 module RGen
   attr_reader :team_members,
               :team_members_with_pps,
+              :team_members_with_light_duty,
               :positions,
               :r,
               :team_member
@@ -18,10 +19,11 @@ module RGen
   def generate_responsibilities
     set_positions
     set_team_members
-    cache_tms_with_pps
     create_responsibilities
-    assign_responsibilities
 
+
+
+    assign_responsibilities
 
     # assign_team_members
   end
@@ -32,6 +34,23 @@ module RGen
 
   protected
 
+
+  def assign_responsibilities
+    responsibilities.each do |responsibility|
+      @r = responsibility
+
+      if r.position.light_duty_friendly
+        set_tms_with_light_duty
+        check_for_light_duties
+      end
+
+      set_tms_with_pps
+      check_for_permanent_positions
+
+    end
+  end
+
+
   def set_positions
     @positions = sort_type.setup.positions
   end
@@ -41,9 +60,15 @@ module RGen
     check_for_unavailable_team_members
   end
 
-  def cache_tms_with_pps
+  def set_tms_with_pps
     @team_members_with_pps = team_members.reject do |tm|
-      tm.permanent_positions.empty?
+      true if tm.permanent_positions.empty? || tm.light_duty
+    end
+  end
+
+  def set_tms_with_light_duty
+    @team_members_with_light_duty = team_members.select do |tm|
+      tm.light_duty
     end
   end
 
@@ -75,30 +100,40 @@ module RGen
     end
   end
 
-  def assign_responsibilities
-    responsibilities.each do |responsibility|
-      @r = responsibility
-
-      check_for_permanent_positions
-
-    end
-  end
-
   def check_for_permanent_positions
-      team_members_with_pps.each do |team_member|
-        @team_member = team_member
-        assign_permanent_position
-      end
+    team_members_with_pps.each do |team_member|
+      @team_member = team_member
+      assign_permanent_position
+    end
   end
 
   def assign_permanent_position
     team_member.permanent_positions.each do |pp|
       if r.position_id == pp[1].to_i && sort_type_id == pp[2].to_i
-        r.update(
-          team_member_id: team_member.id,
-          team_member: team_member
-        )
+        assign_team_member_to_responsibility
       end
+    end
+  end
+
+  def check_for_light_duties
+    unless team_members_with_light_duty.empty?
+      @team_member = team_members_with_light_duty.first
+      assign_team_member_to_responsibility
+    end
+  end
+
+  def assign_team_member_to_responsibility
+    r.update(
+      team_member_id: team_member.id,
+      team_member: team_member
+    )
+
+    remove_team_member_from_circulation
+  end
+
+  def remove_team_member_from_circulation
+    @team_members = team_members.reject do |tm|
+      tm.id == team_member.id
     end
   end
 
