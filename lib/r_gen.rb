@@ -2,6 +2,7 @@ module RGen
   attr_reader :team_members,
               :team_members_with_pps,
               :team_members_with_light_duty,
+              :newbie_team_members,
               :positions,
               :r,
               :team_member
@@ -47,6 +48,11 @@ module RGen
       set_tms_with_pps
       check_for_permanent_positions
 
+      if r.position.newbie_friendly
+        set_newbie_tms
+        check_for_newbies
+      end
+
     end
   end
 
@@ -69,6 +75,14 @@ module RGen
   def set_tms_with_light_duty
     @team_members_with_light_duty = team_members.select do |tm|
       tm.light_duty
+    end
+  end
+
+  def set_newbie_tms
+    @newbie_team_members = team_members.select do |tm|
+      if tm.newbie? && tm.light_duty == false && tm.permanent_positions.empty?
+        true
+      end
     end
   end
 
@@ -118,6 +132,13 @@ module RGen
   def check_for_light_duties
     unless team_members_with_light_duty.empty?
       @team_member = team_members_with_light_duty.first
+      assign_team_member_to_responsibility
+    end
+  end
+
+  def check_for_newbies
+    unless newbie_team_members.empty?
+      @team_member = newbie_team_members.first
       assign_team_member_to_responsibility
     end
   end
