@@ -29,6 +29,7 @@ module SchedulesHelper
 
   def position_name(sort_type_id, date, team_member_id)
     sort = get_sort(sort_type_id, date)
+
     if sort.nil?
       position_name = ""
     else
